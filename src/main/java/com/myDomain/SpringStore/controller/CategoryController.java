@@ -22,4 +22,12 @@ public class CategoryController {
     public List<Category> categoryList(){
         return categoryService.listCategories();
     }
+
+    @PostMapping("/update/{categoryId}")
+    public String updateCategory(@PathVariable("categoryId") Long categoryId,
+                                 @RequestBody Category category){
+
+        categoryService.editCategory(categoryId,category);
+        return "Category updated successfully!";
+    }
 }
