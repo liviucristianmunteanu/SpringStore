@@ -5,6 +5,8 @@ import com.myDomain.SpringStore.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryService {
     @Autowired
@@ -12,5 +14,9 @@ public class CategoryService {
 
     public void createCategory (Category category) {
         categoryRepository.save(category);
+    }
+
+    public List<Category> listCategories(){
+        return categoryRepository.findAll();
     }
 }
