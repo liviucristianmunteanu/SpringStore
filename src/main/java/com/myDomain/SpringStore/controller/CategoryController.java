@@ -30,4 +30,10 @@ public class CategoryController {
         categoryService.editCategory(categoryId,category);
         return "Category updated successfully!";
     }
+
+    @DeleteMapping(value = "delete/{categoryId}")
+    public String deleteCategory(@PathVariable Long categoryId){
+        categoryService.deleteCategory(categoryId);
+        return "category deleted";
+    }
 }
