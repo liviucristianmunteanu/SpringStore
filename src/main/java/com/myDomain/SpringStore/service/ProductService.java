@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -33,6 +34,7 @@ public class ProductService {
         productDto.setImageUrl(product.getImageUrl());
         productDto.setDescription(product.getDescription());
         productDto.setCategoryId(product.getCategory().getId());
+        productDto.setId(product.getId());
         return productDto;
     }
     public List<ProductDto> geAllProducts() {
@@ -42,5 +44,22 @@ public class ProductService {
             productDtos.add(getProductDto(product));
         }
         return productDtos;
+    }
+
+    public void updateProduct(ProductDto productDto, Long productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if(!optionalProduct.isPresent()){
+            try {
+                throw new Exception("product not present!");
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+        Product product = optionalProduct.get();
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        product.setImageUrl(productDto.getImageUrl());
+        product.setDescription(productDto.getDescription());
+        productRepository.save(product);
     }
 }

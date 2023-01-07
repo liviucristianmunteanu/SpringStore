@@ -35,4 +35,15 @@ public class ProductController {
         List<ProductDto> products = productService.geAllProducts();
         return products;
     }
+
+    @PostMapping("/update/{productId}")
+    public String  updateProduct(@PathVariable("productId") Long productId,
+                                 @RequestBody ProductDto productDto) {
+        final Optional<Category> optionalCategory = categoryRepository.findById(productDto.getCategoryId());
+        if(!optionalCategory.isPresent()){
+            return "Category does not exist";
+        }
+        productService.updateProduct(productDto , productId);
+        return "product has been updated";
+    }
 }
