@@ -36,4 +36,10 @@ public class CategoryController {
         categoryService.deleteCategory(categoryId);
         return "category deleted";
     }
+
+    @GetMapping("/{categoryId}")
+    public Category getCategory(@PathVariable("categoryId") Long categoryId){
+
+        return categoryService.getCategory(categoryId);
+    }
 }

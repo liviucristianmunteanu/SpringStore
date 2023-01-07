@@ -32,4 +32,13 @@ public class CategoryService {
         Category category = categoryRepository.getReferenceById(categoryId);
         categoryRepository.deleteById(categoryId);
     }
+
+    public Category getCategory(Long categoryId){
+        Category category = listCategories()
+                .stream()
+                .filter(t -> categoryId.equals(t.getId()))
+                .findFirst()
+                .orElse(null);
+        return category;
+    }
 }
