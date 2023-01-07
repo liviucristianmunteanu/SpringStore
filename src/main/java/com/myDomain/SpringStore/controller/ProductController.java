@@ -6,11 +6,9 @@ import com.myDomain.SpringStore.repository.CategoryRepository;
 import com.myDomain.SpringStore.repository.ProductRepository;
 import com.myDomain.SpringStore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,5 +28,11 @@ public class ProductController {
         }
         productService.createProduct(productDto , optionalCategory.get());
         return "product has been added";
+    }
+
+    @GetMapping("/")
+    public List<ProductDto> getProducts(){
+        List<ProductDto> products = productService.geAllProducts();
+        return products;
     }
 }
