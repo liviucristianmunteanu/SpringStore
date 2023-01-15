@@ -28,4 +28,18 @@ public class UserController {
             return ResponseEntity.ok().build();
 
     }
+    @PutMapping(value = "/update-user/{id}")
+    public ResponseEntity updateUser(@PathVariable Integer id, @RequestBody MyUser updatedUser) {
+        Optional<MyUser> optionalUser = userService.findById(id);
+        if (optionalUser.isPresent()) {
+            optionalUser.ifPresent(user -> {
+                user.setFirstname(updatedUser.getFirstname());
+                user.setLastname(updatedUser.getLastname());
+                user.setEmail(updatedUser.getEmail());
+                userService.saveUser(user);
+            });
+            return ResponseEntity.ok().build();
+        } else
+            return ResponseEntity.badRequest().build();
+    }
 }
