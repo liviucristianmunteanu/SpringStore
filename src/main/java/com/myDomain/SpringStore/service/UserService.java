@@ -21,4 +21,8 @@ public class UserService {
     public Optional<MyUser> findById(Integer id) {
         return userRepository.findById(id);
     }
+
+    public void addUser(MyUser user) {
+        userRepository.save(user);
+    }
 }
