@@ -42,9 +42,25 @@ public class UserController {
         } else
             return ResponseEntity.badRequest().build();
     }
+    @GetMapping(value="/{id}")
+    public ResponseEntity findById(@PathVariable Integer id){
+        Optional<MyUser> optionalUser = userService.findById(id);
+        if (optionalUser.isPresent()) {
+            optionalUser.ifPresent(user -> {
+                user.getFirstname();
+                user.getLastname();
+                user.getEmail();
+            });
+            return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+
+        }else
+            return ResponseEntity.badRequest().build();
+
+    }
     @DeleteMapping(value="/delete-user/{id}")
     public ResponseEntity deleteUser(@PathVariable Integer id){
         userService.deleteUser(id);
+
         return ResponseEntity.ok().build();
     }
 }
